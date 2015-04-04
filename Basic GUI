@@ -1,49 +1,70 @@
-/* This is what I have so far for the main GUI I have the bassics set up
- * and the action listeners for the buttons set up I can't really do much
- * other than this. I also have the player rotation figured out
- */
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.event.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 
 public class MainPanel extends JPanel implements ActionListener{
+	//attributes
+	Player p1 = new Player("Player 1");
+	Player p2 = new Player("Player 2");
+	Player p3 = new Player("Player 3");
+	Player pCurr = p1;	//sets current player to p1
+	
+	//components
     private JLabel p1money;
     private JLabel p2money;
     private JLabel p3money;
     
-    private JRadioButton p1;
-    private JRadioButton p2;
-    private JRadioButton p3;
+    private JRadioButton p1turn;
+    private JRadioButton p2turn;
+    private JRadioButton p3turn;
     
     private JButton spin;
     private JButton guessLett;
     private JButton buyVowel;
     private JButton guessPhrase;
+    
+    //sounds
+    SpinSound spinner = new SpinSound();
 
     public MainPanel() {
+    	//test
+    	p1.addToWinnings(100);
+    	p2.addToBanked(400);
+    	p3.addToBanked(200);
+    	
+    	
         //construct components
-        
-        p1money = new JLabel ("$");
-        p2money = new JLabel ("$");
-        p3money = new JLabel ("$");
+        p1money = new JLabel ("$"+p1.totalWinnings());	//tells players how much money they have won total
+        p2money = new JLabel ("$"+p2.totalWinnings());
+        p3money = new JLabel ("$"+p3.totalWinnings());
 
-        p1 = new JRadioButton ("Player 1");
-        p2 = new JRadioButton ("Player 2");
-        p3 = new JRadioButton ("Player 3");
+        p1turn = new JRadioButton (p1.getName());	//shows the current player
+        p2turn = new JRadioButton (p2.getName());
+        p3turn = new JRadioButton (p3.getName());
         
         spin = new JButton ("Spin!");
-        guessLett = new JButton ("Guess Letter");
-        buyVowel = new JButton ("Buy Vowel");
-        guessPhrase = new JButton ("Guess Phrase");
+        guessLett = new JButton ("Guess a Letter");
+        buyVowel = new JButton ("Buy a Vowel");
+        guessPhrase = new JButton ("Guess a Phrase");
 
         //set component properties
-        p1.setEnabled(false);
-        p2.setEnabled(false);
-        p3.setEnabled(false);
+        p1turn.setEnabled(false);	//make it so players cant change the player turn
+        p2turn.setEnabled(false);
+        p3turn.setEnabled(false);
         
-        p1.setSelected(true);
+        p1money.setForeground(Color.GRAY);
+        p2money.setForeground(Color.GRAY);
+        p3money.setForeground(Color.GRAY);
+        
+        p1turn.setSelected(true);	//initialy starts at player 1
   
         spin.setEnabled(true);
         guessLett.setEnabled(false);
@@ -64,9 +85,9 @@ public class MainPanel extends JPanel implements ActionListener{
         add (p1money);
         add (p2money);
         add (p3money);
-        add (p1);
-        add (p2);
-        add (p3);
+        add (p1turn);
+        add (p2turn);
+        add (p3turn);
         add (spin);
         add (guessLett);
         add (buyVowel);
@@ -76,92 +97,104 @@ public class MainPanel extends JPanel implements ActionListener{
         p3money.setBounds (620, 50, 100, 20);
         p2money.setBounds (620, 80, 100, 20);
         p1money.setBounds (620, 110, 100, 20);
-        p1.setBounds (515, 50, 100, 25);
-        p2.setBounds (515, 80, 100, 25);
-        p3.setBounds (515, 110, 100, 25);
+        p1turn.setBounds (515, 50, 100, 25);
+        p2turn.setBounds (515, 80, 100, 25);
+        p3turn.setBounds (515, 110, 100, 25);
         spin.setBounds (550, 175, 155, 80);
         guessLett.setBounds (10, 235, 150, 50);
         buyVowel.setBounds (180, 235, 150, 50);
         guessPhrase.setBounds (350, 235, 150, 50);
     }
+
+    public void playerRotate(){
+    	if(p1turn.isSelected()){
+    		p1turn.setSelected(false);
+    		p2turn.setSelected(true);
+    		pCurr = p2;
+    	}
+
+    	else if(p2turn.isSelected()){
+    		p2turn.setSelected(false);
+    		p3turn.setSelected(true);
+    		pCurr = p3;
+    	}
+
+    	else if(p3turn.isSelected()){
+    		p3turn.setSelected(false);
+    		p1turn.setSelected(true);
+    		pCurr = p1;
+    	}
+    }
+
+    public boolean confirm(JButton b){
+    	boolean result=false;
+    	if (JOptionPane.showConfirmDialog(null, "Are you sure you want to "+b.getText().toLowerCase()+"?", "Confirm",
+    			JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+    		result=true;
+    		playerRotate();
+    	} 
+    	else {
+    		spin.setEnabled(false);
+    		guessLett.setEnabled(true);
+    		if(pCurr.totalWinnings()>250)
+    			buyVowel.setEnabled(true);
+    		else
+    			buyVowel.setEnabled(false);
+    		guessPhrase.setEnabled(true);
+    		result=false;
+    	}
+    	return result;
+    }
+    
     
     public void actionPerformed(ActionEvent e) {
     	if(e.getSource().equals(spin)){
+    		spinner.play();	//plays wheel sound
     		spin.setEnabled(false);
     		guessLett.setEnabled(true);
-    		buyVowel.setEnabled(true);
+    		if(pCurr.totalWinnings()>250)
+    			buyVowel.setEnabled(true);
+    		else
+    			buyVowel.setEnabled(false);
     		guessPhrase.setEnabled(true);
     	}
 
     	else if(e.getSource().equals(guessLett)){
-    	    spin.setEnabled(true);
-            guessLett.setEnabled(false);
-            buyVowel.setEnabled(false);
-            guessPhrase.setEnabled(false);
-    		confirm(buyVowel);
+    		if(confirm(guessLett)){
+    			spin.setEnabled(true);
+    			guessLett.setEnabled(false);
+    			buyVowel.setEnabled(false);
+    			guessPhrase.setEnabled(false);
+    		}
+    		
     	}
 
     	else if(e.getSource().equals(buyVowel)){
-    	    spin.setEnabled(true);
-            guessLett.setEnabled(false);
-            buyVowel.setEnabled(false);
-            guessPhrase.setEnabled(false);
-            confirm(buyVowel);
-
+    		if(confirm(buyVowel)){
+    			spin.setEnabled(true);
+    			guessLett.setEnabled(false);
+    			buyVowel.setEnabled(false);
+    			guessPhrase.setEnabled(false);
+    		}
     	}
-
+    	
     	else if(e.getSource().equals(guessPhrase)){
-    	    spin.setEnabled(true);
-            guessLett.setEnabled(false);
-            buyVowel.setEnabled(false);
-            guessPhrase.setEnabled(false);
-            confirm(guessPhrase);
+    		if(confirm(guessPhrase)){
+    			spin.setEnabled(true);
+    			guessLett.setEnabled(false);
+    			buyVowel.setEnabled(false);
+    			guessPhrase.setEnabled(false);
+    		}
     	}
-    
+
 	}
-    
-    public void playerRotate(){
-    	if(p1.isSelected()){
-    		p1.setSelected(false);
-    		p2.setSelected(true);
-    	}
-    	
-    	else if(p2.isSelected()){
-    		p2.setSelected(false);
-    		p3.setSelected(true);
-    	}
-    	
-    	else if(p3.isSelected()){
-    		p3.setSelected(false);
-    		p1.setSelected(true);
-    	}
-    }
-    
-     public void confirm(JButton b){
-    	if (JOptionPane.showConfirmDialog(null, "Are you sure you want to "+b.getText().toLowerCase()+"?", "Confirm",
-    			JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-    		JOptionPane.showMessageDialog(null, "hi");
-    		playerRotate();
-    	} 
-    	else {
-    		JOptionPane.showMessageDialog(null, "bye");
-    		spin.setEnabled(false);
-    		guessLett.setEnabled(true);
-    		buyVowel.setEnabled(true);
-    		guessPhrase.setEnabled(true);
-    	}
-    }
 
     public static void main (String[] args) {
-        JFrame frame = new JFrame ("Wheel of Fortune");
-        frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add (new MainPanel());
-        frame.pack();
-        frame.setVisible (true);
+    	JFrame frame = new JFrame ("Wheel of Fortune");
+    	frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
+    	frame.getContentPane().add (new MainPanel());
+    	frame.pack();
+    	frame.setVisible (true);
     }
-
-
-	
-}
 
 }
