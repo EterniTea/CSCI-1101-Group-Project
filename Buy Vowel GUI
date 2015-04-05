@@ -1,0 +1,83 @@
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+
+public class BuyVowel extends JPanel implements ActionListener{
+	//components
+	private JButton cancel, a, e, i, o, u;
+	private GridLayout grid;
+	
+	public BuyVowel(){
+		//construct components
+		cancel = new JButton("Cancel");
+		a = new JButton("A");
+		e = new JButton("E");
+		i = new JButton("I");
+		o = new JButton("O");
+		u = new JButton("U");
+		
+		//set size and layout
+		grid = new GridLayout(0,3);
+		
+		//set component properties
+		cancel.addActionListener(this);
+		a.addActionListener(this);
+		e.addActionListener(this);
+		i.addActionListener(this);
+		o.addActionListener(this);
+		u.addActionListener(this);
+		
+		//add components
+		add(a);
+		add(e);
+		add(i);
+		add(o);
+		add(u);
+		add(cancel);
+	}
+	
+
+	
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource().equals(cancel)){
+			
+		}
+		
+		else if(e.getSource().equals(a)){
+			a.setEnabled(false);
+		}
+		
+		else if(e.getSource().equals(this.e)){
+			this.e.setEnabled(false);
+		}
+		
+		else if(e.getSource().equals(i)){
+			i.setEnabled(false);
+		}
+		
+		else if(e.getSource().equals(o)){
+			o.setEnabled(false);
+		}
+		
+		else if(e.getSource().equals(u)){
+			u.setEnabled(false);
+		}
+
+
+	}
+	
+	public static void main(String[] args) {
+		//Game start Frame
+		JFrame start = new JFrame ("Guess Letter");
+		start.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
+		start.getContentPane().add(new BuyVowel());
+		start.pack();
+		start.setVisible (true);
+
+	}
+}
