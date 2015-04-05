@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -12,10 +11,10 @@ import javax.swing.JRadioButton;
 
 public class MainPanel extends JPanel implements ActionListener{
 	//attributes
-	Player p1 = new Player("Player 1");
-	Player p2 = new Player("Player 2");
-	Player p3 = new Player("Player 3");
-	Player pCurr = p1;	//sets current player to p1
+	Player p1;
+	Player p2;
+	Player p3;
+	Player pCurr;	
 	
 	//components
     private JLabel p1money;
@@ -34,7 +33,13 @@ public class MainPanel extends JPanel implements ActionListener{
     //sounds
     SpinSound spinner = new SpinSound();
 
-    public MainPanel() {
+    public MainPanel(String n1, String n2, String n3) {
+    	//construct players
+    	p1 = new Player(n1);
+    	p2 = new Player(n2);
+    	p3 = new Player(n3);
+    	pCurr = p1;		//sets current player to p1
+    	
     	//test
     	p1.addToWinnings(100);
     	p2.addToBanked(400);
@@ -106,19 +111,24 @@ public class MainPanel extends JPanel implements ActionListener{
         guessPhrase.setBounds (350, 235, 150, 50);
     }
 
+    //changes the players after each turn
     public void playerRotate(){
+    	
+    	//p1 to p2
     	if(p1turn.isSelected()){
     		p1turn.setSelected(false);
     		p2turn.setSelected(true);
     		pCurr = p2;
     	}
 
+    	//p2 to p3
     	else if(p2turn.isSelected()){
     		p2turn.setSelected(false);
     		p3turn.setSelected(true);
     		pCurr = p3;
     	}
 
+    	//p3 to p1
     	else if(p3turn.isSelected()){
     		p3turn.setSelected(false);
     		p1turn.setSelected(true);
@@ -126,13 +136,28 @@ public class MainPanel extends JPanel implements ActionListener{
     	}
     }
 
+    //update winnings
+    public void updateMoney(){
+    	p1money.setText("$"+p1.totalWinnings());
+		p2money.setText("$"+p2.totalWinnings());
+		p3money.setText("$"+p3.totalWinnings());
+    }
     public boolean confirm(JButton b){
     	boolean result=false;
     	if (JOptionPane.showConfirmDialog(null, "Are you sure you want to "+b.getText().toLowerCase()+"?", "Confirm",
     			JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
     		result=true;
+    		if(b.equals(buyVowel)){
+    			if(pCurr.getBankedWinnings()>250)
+    				pCurr.addToBanked(-250);
+    			
+    			else
+    				pCurr.addToWinnings(-250);
+    		}
+    		updateMoney();
     		playerRotate();
     	} 
+    	
     	else {
     		spin.setEnabled(false);
     		guessLett.setEnabled(true);
@@ -189,12 +214,5 @@ public class MainPanel extends JPanel implements ActionListener{
 
 	}
 
-    public static void main (String[] args) {
-    	JFrame frame = new JFrame ("Wheel of Fortune");
-    	frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-    	frame.getContentPane().add (new MainPanel());
-    	frame.pack();
-    	frame.setVisible (true);
-    }
 
 }
