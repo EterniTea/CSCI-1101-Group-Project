@@ -1,0 +1,198 @@
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+
+public class GuessLetter extends JPanel implements ActionListener{
+	//components
+	private JButton cancel, b, c, d, f, g, h, j, k, l, m, n, p, q, r, s, t, v, w, x, y, z;
+	private GridLayout grid;
+	
+	public GuessLetter(){
+		//construct components
+		cancel = new JButton("Cancel");
+		b = new JButton("B");
+		c = new JButton("C");
+		d = new JButton("D");
+		f = new JButton("F");
+		g = new JButton("G");
+		h = new JButton("H");
+		j = new JButton("J");
+		k = new JButton("K");
+		l = new JButton("L");
+		m = new JButton("M");
+		n = new JButton("N");
+		p = new JButton("P");
+		q = new JButton("Q");
+		r = new JButton("R");
+		s = new JButton("S");
+		t = new JButton("T");
+		v = new JButton("V");
+		w = new JButton("W");
+		x = new JButton("X");
+		y = new JButton("Y");
+		z = new JButton("Z");
+		
+		//size and layout
+		setPreferredSize (new Dimension (600, 200));
+		grid = new GridLayout(0,7);
+		setLayout(grid);
+		
+		//component properties
+		cancel.addActionListener(this);
+		b.addActionListener(this);
+		c.addActionListener(this);
+		d.addActionListener(this);
+		f.addActionListener(this);
+		g.addActionListener(this);
+		h.addActionListener(this);
+		j.addActionListener(this);
+		k.addActionListener(this);
+		l.addActionListener(this);
+		m.addActionListener(this);
+		n.addActionListener(this);
+		p.addActionListener(this);
+		q.addActionListener(this);
+		r.addActionListener(this);
+		s.addActionListener(this);
+		t.addActionListener(this);
+		v.addActionListener(this);
+		w.addActionListener(this);
+		x.addActionListener(this);
+		y.addActionListener(this);
+		z.addActionListener(this);
+		
+		//add components
+		add(b);
+		add(c);
+		add(d);
+		add(f);
+		add(g);
+		add(h);
+		add(j);
+		add(k);
+		add(l);
+		add(m);
+		add(n);
+		add(p);
+		add(q);
+		add(r);
+		add(s);
+		add(t);
+		add(v);
+		add(w);
+		add(x);
+		add(y);
+		add(z);
+		add(cancel);
+	}
+	
+	public static void confirm(){
+		
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource().equals(cancel)){
+
+		}
+		if(e.getSource().equals(b)){
+			b.setEnabled(false);
+		}
+		
+		if(e.getSource().equals(c)){
+			c.setEnabled(false);
+		}
+		
+		if(e.getSource().equals(d)){
+			d.setEnabled(false);
+		}
+		
+		if(e.getSource().equals(f)){
+			f.setEnabled(false);
+		}
+		
+		if(e.getSource().equals(g)){
+			g.setEnabled(false);
+		}
+		
+		if(e.getSource().equals(h)){
+			h.setEnabled(false);
+		}
+		
+		if(e.getSource().equals(j)){
+			j.setEnabled(false);
+		}
+		
+		if(e.getSource().equals(k)){
+			k.setEnabled(false);
+		}
+		
+		if(e.getSource().equals(l)){
+			l.setEnabled(false);
+		}
+		
+		if(e.getSource().equals(m)){
+			m.setEnabled(false);
+		}
+		
+		if(e.getSource().equals(n)){
+			n.setEnabled(false);
+		}
+		
+		if(e.getSource().equals(p)){
+			p.setEnabled(false);
+		}
+		
+		if(e.getSource().equals(q)){
+			q.setEnabled(false);
+		}
+		
+		if(e.getSource().equals(r)){
+			r.setEnabled(false);
+		}
+		
+		if(e.getSource().equals(s)){
+			s.setEnabled(false);
+		}
+		
+		if(e.getSource().equals(t)){
+			t.setEnabled(false);
+		}
+		
+		if(e.getSource().equals(v)){
+			v.setEnabled(false);
+		}
+		
+		if(e.getSource().equals(w)){
+			w.setEnabled(false);
+		}
+		
+		if(e.getSource().equals(x)){
+			x.setEnabled(false);
+		}
+		
+		if(e.getSource().equals(y)){
+			y.setEnabled(false);
+		}
+		
+		if(e.getSource().equals(z)){
+			z.setEnabled(false);
+		}
+
+
+	}
+	public static void main(String[] args) {
+		//Game start Frame
+		JFrame start = new JFrame ("Guess Letter");
+		start.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
+		start.getContentPane().add(new GuessLetter());
+		start.pack();
+		start.setVisible (true);
+
+	}
+}
