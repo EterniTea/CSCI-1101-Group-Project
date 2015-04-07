@@ -5,15 +5,26 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
-public class GuessLetter extends JPanel implements ActionListener{
+public class GuessLetter extends GuessPanel implements ActionListener{
+	//return variables
+	private String event, guess;
+
+	//sounds
+		PopUp pop = new PopUp();
+		
 	//components
 	private JButton cancel, b, c, d, f, g, h, j, k, l, m, n, p, q, r, s, t, v, w, x, y, z;
 	private GridLayout grid;
-	
+
 	public GuessLetter(){
+		//return variables
+		event="";
+		guess="";
+
 		//construct components
 		cancel = new JButton("Cancel");
 		b = new JButton("B");
@@ -37,12 +48,12 @@ public class GuessLetter extends JPanel implements ActionListener{
 		x = new JButton("X");
 		y = new JButton("Y");
 		z = new JButton("Z");
-		
+
 		//size and layout
 		setPreferredSize (new Dimension (600, 200));
 		grid = new GridLayout(0,7);
 		setLayout(grid);
-		
+
 		//component properties
 		cancel.addActionListener(this);
 		b.addActionListener(this);
@@ -66,7 +77,7 @@ public class GuessLetter extends JPanel implements ActionListener{
 		x.addActionListener(this);
 		y.addActionListener(this);
 		z.addActionListener(this);
-		
+
 		//add components
 		add(b);
 		add(c);
@@ -91,108 +102,51 @@ public class GuessLetter extends JPanel implements ActionListener{
 		add(z);
 		add(cancel);
 	}
-	
-	public static void confirm(){
-		
-	}
-	
-	public void actionPerformed(ActionEvent e) {
-		if(e.getSource().equals(cancel)){
 
-		}
-		if(e.getSource().equals(b)){
+	//get return variables
+	public String getEvent(){return event;}
+	public String getGuess(){return guess;}
+
+	//confirm player action
+	public boolean confirm(JButton b){
+		boolean result=false;
+		pop.play();
+		if (JOptionPane.showConfirmDialog(null, "Is "+b.getText()+" your guess?", "Confirm",
+				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+			result=true;
 			b.setEnabled(false);
+			guess=b.getText();
+			event="guess";
 		}
 		
-		if(e.getSource().equals(c)){
-			c.setEnabled(false);
-		}
-		
-		if(e.getSource().equals(d)){
-			d.setEnabled(false);
-		}
-		
-		if(e.getSource().equals(f)){
-			f.setEnabled(false);
-		}
-		
-		if(e.getSource().equals(g)){
-			g.setEnabled(false);
-		}
-		
-		if(e.getSource().equals(h)){
-			h.setEnabled(false);
-		}
-		
-		if(e.getSource().equals(j)){
-			j.setEnabled(false);
-		}
-		
-		if(e.getSource().equals(k)){
-			k.setEnabled(false);
-		}
-		
-		if(e.getSource().equals(l)){
-			l.setEnabled(false);
-		}
-		
-		if(e.getSource().equals(m)){
-			m.setEnabled(false);
-		}
-		
-		if(e.getSource().equals(n)){
-			n.setEnabled(false);
-		}
-		
-		if(e.getSource().equals(p)){
-			p.setEnabled(false);
-		}
-		
-		if(e.getSource().equals(q)){
-			q.setEnabled(false);
-		}
-		
-		if(e.getSource().equals(r)){
-			r.setEnabled(false);
-		}
-		
-		if(e.getSource().equals(s)){
-			s.setEnabled(false);
-		}
-		
-		if(e.getSource().equals(t)){
-			t.setEnabled(false);
-		}
-		
-		if(e.getSource().equals(v)){
-			v.setEnabled(false);
-		}
-		
-		if(e.getSource().equals(w)){
-			w.setEnabled(false);
-		}
-		
-		if(e.getSource().equals(x)){
-			x.setEnabled(false);
-		}
-		
-		if(e.getSource().equals(y)){
-			y.setEnabled(false);
-		}
-		
-		if(e.getSource().equals(z)){
-			z.setEnabled(false);
-		}
-
-
+		return result;
 	}
-	public static void main(String[] args) {
-		//Game start Frame
-		JFrame start = new JFrame ("Guess Letter");
-		start.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-		start.getContentPane().add(new GuessLetter());
-		start.pack();
-		start.setVisible (true);
+
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource().equals(cancel)){event="cancel";}
+		else if(e.getSource().equals(b)){confirm(b);}
+		else if(e.getSource().equals(c)){confirm(c);}
+		else if(e.getSource().equals(d)){confirm(d);}
+		else if(e.getSource().equals(f)){confirm(f);}
+		else if(e.getSource().equals(g)){confirm(g);}
+		else if(e.getSource().equals(h)){confirm(h);}
+		else if(e.getSource().equals(j)){confirm(j);}
+		else if(e.getSource().equals(k)){confirm(k);}
+		else if(e.getSource().equals(l)){confirm(l);}
+		else if(e.getSource().equals(m)){confirm(m);}
+		else if(e.getSource().equals(n)){confirm(n);}
+		else if(e.getSource().equals(p)){confirm(p);}
+		else if(e.getSource().equals(q)){confirm(q);}
+		else if(e.getSource().equals(r)){confirm(r);}
+		else if(e.getSource().equals(s)){confirm(s);}
+		else if(e.getSource().equals(t)){confirm(t);}
+		else if(e.getSource().equals(v)){confirm(v);}
+		else if(e.getSource().equals(w)){confirm(w);}
+		else if(e.getSource().equals(x)){confirm(x);}
+		else if(e.getSource().equals(y)){confirm(y);}
+		else if(e.getSource().equals(z)){confirm(z);}
+	}
+}
 
 	}
 }
