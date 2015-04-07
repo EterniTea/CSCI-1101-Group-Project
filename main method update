@@ -1,0 +1,51 @@
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+
+public class Wheel_of_Fortune {
+
+	public static void main(String[] args) {
+		//sound
+		PopUp pop = new PopUp();
+		
+		//initialize variables
+		int round = 1;
+		String name1="", name2="", name3="";
+
+		//initialize frames
+		JFrame start = new JFrame ("New Game");
+		JFrame game = new JFrame ("Wheel of Fortune - Round " + round);
+		JFrame vowel = new JFrame ("Buy a Vowel");
+		JFrame letter = new JFrame ("Guess a Letter");
+		JFrame phrase = new JFrame ("Guess the Phrase");
+
+		//start the game
+		GameStart startP = new GameStart();	//initialize panel
+		start.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
+		start.getContentPane().add(startP);
+		start.pack();
+		start.setVisible (true);
+		//while loop to keep window visible until the event of the panel is "event"
+		while(start.isVisible()){
+			if(!startP.getEvent().equals("start"))
+				start.setVisible (true);
+			else{
+				name1 = startP.getPlayer1();
+				name2 = startP.getPlayer2();
+				name3 = startP.getPlayer3();
+				start.setVisible(false);	//hides the gamestart window
+			}
+		}
+	
+		
+		MainPanel gameP = new MainPanel(name1, name2, name3);
+		game.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
+		game.getContentPane().add(gameP);
+		game.pack();
+		game.setVisible(true);
+		pop.play();
+		JOptionPane.showMessageDialog(null, "Round"+round);
+
+	}
+
+}
