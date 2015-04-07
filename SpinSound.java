@@ -48,9 +48,7 @@ public class SpinSound {
 					playNote(pitch, channels, 100+i*4);
 				}
 			}
-			
-			pitch=72;
-			playNote(pitch, channels, 1200);
+
 
 			synth.close();
 		}
