@@ -4,15 +4,25 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
-public class BuyVowel extends JPanel implements ActionListener{
+public class BuyVowel extends GuessPanel implements ActionListener{
+	//return variables
+	private String event, guess;
+	
+	//sounds
+		PopUp pop = new PopUp();
 	//components
 	private JButton cancel, a, e, i, o, u;
 	private GridLayout grid;
 	
 	public BuyVowel(){
+		//return variables
+		event="";
+		guess="";
+		
 		//construct components
 		cancel = new JButton("Cancel");
 		a = new JButton("A");
@@ -41,43 +51,33 @@ public class BuyVowel extends JPanel implements ActionListener{
 		add(cancel);
 	}
 	
-
+	//get return variables
+	public String getEvent(){return event;}
+	public String getGuess(){return guess;}
+	
+	//confirm player action
+	public boolean confirm(JButton b){
+		boolean result=false;
+		pop.play();
+		if (JOptionPane.showConfirmDialog(null, "Is "+b.getText()+" your guess?", "Confirm",
+				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+			result=true;
+			b.setEnabled(false);
+			guess=b.getText();
+			event="guess";
+		}
+		
+		return result;
+	}
 	
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource().equals(cancel)){
-			
-		}
-		
-		else if(e.getSource().equals(a)){
-			a.setEnabled(false);
-		}
-		
-		else if(e.getSource().equals(this.e)){
-			this.e.setEnabled(false);
-		}
-		
-		else if(e.getSource().equals(i)){
-			i.setEnabled(false);
-		}
-		
-		else if(e.getSource().equals(o)){
-			o.setEnabled(false);
-		}
-		
-		else if(e.getSource().equals(u)){
-			u.setEnabled(false);
-		}
-
-
+		if(e.getSource().equals(cancel)){event="cancel";}
+		else if(e.getSource().equals(a)){confirm(a);}
+		else if(e.getSource().equals(this.e)){confirm(this.e);}
+		else if(e.getSource().equals(i)){confirm(i);}
+		else if(e.getSource().equals(o)){confirm(o);}
+		else if(e.getSource().equals(u)){confirm(u);}
 	}
 	
-	public static void main(String[] args) {
-		//Game start Frame
-		JFrame start = new JFrame ("Guess Letter");
-		start.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-		start.getContentPane().add(new BuyVowel());
-		start.pack();
-		start.setVisible (true);
-
-	}
 }
+
