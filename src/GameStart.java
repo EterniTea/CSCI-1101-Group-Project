@@ -8,23 +8,24 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class GameStart extends JPanel implements ActionListener {	
+public class GameStart extends JPanel implements ActionListener {
+	//returning variables
+	String event;
+	
+	//sounds
+		PopUp pop = new PopUp();
+	
 	//components
-	private JLabel entNames;
-	private JLabel p1;
-	private JLabel p2;
-	private JLabel p3;
+	private JLabel entNames, p1, p2, p3;
 	
-	private JTextField name1;
-	private JTextField name2;
-	private JTextField name3;
+	private JTextField name1, name2, name3;
 	
-	private JButton confirm1;
-	private JButton confirm2;
-	private JButton confirm3;
-	private JButton startGame;
+	private JButton confirm1, confirm2, confirm3, startGame;
 	
 	public GameStart() {
+		//returning variables
+		event = "";
+
 		//construct components
 		entNames = new JLabel("          Please enter the player's names below          ");
 		p1 = new JLabel("Player 1: ");
@@ -65,6 +66,14 @@ public class GameStart extends JPanel implements ActionListener {
 		add(startGame);
 		
 	}
+	
+	//returns player input names
+	public String getPlayer1(){return name1.getText();}
+	public String getPlayer2(){return name2.getText();}
+	public String getPlayer3(){return name3.getText();}
+	
+	//returns the event that was pressed
+	public String getEvent(){return event;}
 	
 	
 	public void actionPerformed(ActionEvent e) {
@@ -117,12 +126,7 @@ public class GameStart extends JPanel implements ActionListener {
 		}
 		
 		else if(e.getSource().equals(startGame)){
-			JFrame frame = new JFrame ("Wheel of Fortune");
-	    	frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-	    	frame.getContentPane().add(new MainPanel(name1.getText(), name2.getText(), name3.getText()));
-	    	frame.pack();
-	    	frame.setVisible (true);
-	    	this.setVisible(false);
+			event = "start";
 		}
 				
 	}

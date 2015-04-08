@@ -106,6 +106,8 @@ public class GuessLetter extends GuessPanel implements ActionListener{
 	//get return variables
 	public String getEvent(){return event;}
 	public String getGuess(){return guess;}
+	public void resetEvent(){event="";}
+
 
 	//confirm player action
 	public boolean confirm(JButton b){
@@ -145,8 +147,5 @@ public class GuessLetter extends GuessPanel implements ActionListener{
 		else if(e.getSource().equals(x)){confirm(x);}
 		else if(e.getSource().equals(y)){confirm(y);}
 		else if(e.getSource().equals(z)){confirm(z);}
-	}
-}
-
 	}
 }

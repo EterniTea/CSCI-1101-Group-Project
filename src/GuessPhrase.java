@@ -42,6 +42,8 @@ public class GuessPhrase extends GuessPanel implements ActionListener{
 	//get return variables
 	public String getEvent(){return event;}
 	public String getGuess(){return guess;}
+	public void resetEvent(){event="";}
+
 	
 	//confirm guess
 	public boolean confirm(JTextField f){
@@ -51,12 +53,13 @@ public class GuessPhrase extends GuessPanel implements ActionListener{
 		if (JOptionPane.showConfirmDialog(null, "Is this the guess you gues?\n\""+guess+"\"", "Confirm",
 				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
 			result=true;
-			event="phrase";	//set event to phrase
+			event="guess";	//set event to phrase
 			guess = guess.toUpperCase();
 		}
 		
 		return result;
 	}
+	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(ok)){
 			confirm(phrase);

@@ -54,6 +54,8 @@ public class BuyVowel extends GuessPanel implements ActionListener{
 	//get return variables
 	public String getEvent(){return event;}
 	public String getGuess(){return guess;}
+	public void resetEvent(){event="";}
+
 	
 	//confirm player action
 	public boolean confirm(JButton b){
@@ -80,4 +82,3 @@ public class BuyVowel extends GuessPanel implements ActionListener{
 	}
 	
 }
-

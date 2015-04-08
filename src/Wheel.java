@@ -1,8 +1,7 @@
-
 public class Wheel {
 	//one method "spin" that returns a prize 
 	private String[] prize = new String[24];
-	Wheel(){
+	public Wheel(int r){
 		prize[0] = "1000";
 		prize[1] = "1000";
 		prize[2] = "900";
@@ -22,20 +21,20 @@ public class Wheel {
 		prize[16] = "500";
 		prize[17] = "100";
 		prize[18] = "100";
-		//prize[19] = whicheverclassthisisin.getRound()*1000 + 1000;
+		prize[19] = ""+(r*1000 + 1000);
 		prize[20] = "Bankrupt";
 		prize[21] = "Bankrupt";
 		prize[22] = "Lose a turn";
 		prize[23] = "Bankrupt/1000000/Lose a turn";
 	}
 
-	public String getPrize(){
-		int prizeIndex = (int)(Math.round(Math.random())*23);
+	public String spin(){
+		int prizeIndex = (int)(Math.random()*24);
 		if (prizeIndex==23){
-			int random = (int)(Math.ceil(Math.random()*3));
-			if (random==1)
+			int random = (int)(Math.random()*3);
+			if (random==0)
 				return "Bankrupt";
-			else if (random==2)
+			else if (random==1)
 				return "1000000";
 			else 
 				return "Lose a turn";
