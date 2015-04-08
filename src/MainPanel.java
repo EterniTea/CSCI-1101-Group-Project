@@ -173,6 +173,17 @@ public class MainPanel extends JPanel implements ActionListener{
 		pop.play();
 		JOptionPane.showMessageDialog(null, message);
 		
+		//skips turn, and takes money if bankrupt
+		if(result.equals("Bankrupt")){
+			pCurr.bankrupt();
+			playerRotate();
+			buttonsOFF();
+		}
+		
+		if(result.equals("Lose a turn")){
+			playerRotate();
+			buttonsOFF();
+		}
 	}
 
 	//set event button methods

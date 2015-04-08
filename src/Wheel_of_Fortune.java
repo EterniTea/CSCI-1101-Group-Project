@@ -99,7 +99,8 @@ public class Wheel_of_Fortune {
 					
 				}	//end of while enabled
 				
-				game.setEnabled(true);	
+				game.setEnabled(true);
+				gameP.resetEvent();
 				
 				i++;	//testing purposes////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				
@@ -118,14 +119,12 @@ public class Wheel_of_Fortune {
 		while(f.isVisible()){
 			if(g.getEvent().equals("guess")){
 				g.playerRotate();
-				g.resetEvent();
 				p.resetEvent();
 				f.setVisible(false);
 			}
 		
 			else if(g.getEvent().equals("cancel")){
 				g.buttonsON();
-				g.resetEvent();
 				p.resetEvent();
 				f.setVisible(false);
 				

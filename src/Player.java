@@ -78,5 +78,6 @@ public class Player {
 	
 	//methods added by Jessi
 	public int totalWinnings(){return winnings+bankedWinnings;}
+	public void bankrupt(){winnings=0;}	//needed for bankrupt
 	
 }
