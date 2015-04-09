@@ -19,8 +19,10 @@ public class MainPanel extends JPanel implements ActionListener{
 	SpinSound spinner = new SpinSound();
 	
 	//attributes
-	private static Player p1, p2, p3, pCurr;
-	private int round;
+	private Player p1, p2, p3;
+
+	private Player pCurr;
+	private int round, win;
 	private Wheel w; 
 
 	//components
@@ -34,7 +36,8 @@ public class MainPanel extends JPanel implements ActionListener{
 		//set return variables
 		event = "";
 		
-		//set round and wheel
+		//set win, round and wheel
+		win=0;
 		round = r;
 		w = new Wheel(r);
 		
@@ -63,16 +66,14 @@ public class MainPanel extends JPanel implements ActionListener{
 		p2turn.setEnabled(false);
 		p3turn.setEnabled(false);
 
+		//set money the same colour as disabled radio buttons
 		p1money.setForeground(Color.GRAY);
 		p2money.setForeground(Color.GRAY);
 		p3money.setForeground(Color.GRAY);
 
 		p1turn.setSelected(true);	//initialy starts at player 1
 
-		spin.setEnabled(true);
-		guessLett.setEnabled(false);
-		buyVowel.setEnabled(false);
-		guessPhrase.setEnabled(false);
+		buttonsOFF();
 
 		spin.addActionListener(this);
 		guessLett.addActionListener(this);
@@ -97,9 +98,9 @@ public class MainPanel extends JPanel implements ActionListener{
 		add (guessPhrase);
 
 		//set component bounds 
-		p3money.setBounds (620, 50, 100, 20);
+		p1money.setBounds (620, 50, 100, 20);
 		p2money.setBounds (620, 80, 100, 20);
-		p1money.setBounds (620, 110, 100, 20);
+		p3money.setBounds (620, 110, 100, 20);
 		p1turn.setBounds (515, 50, 100, 25);
 		p2turn.setBounds (515, 80, 100, 25);
 		p3turn.setBounds (515, 110, 100, 25);
@@ -108,12 +109,26 @@ public class MainPanel extends JPanel implements ActionListener{
 		buyVowel.setBounds (180, 235, 150, 50);
 		guessPhrase.setBounds (350, 235, 150, 50);
 	}
-
-	public String getEvent(){return event;}
-	public void resetEvent(){event="";}	//reset event 
-
 	
-	public static Player getPlayer(){return pCurr;}
+	//get players
+	public Player getPlayer1(){return p1;}
+	public Player getPlayer2(){return p2;}
+	public Player getPlayer3(){return p3;}
+	public Player getPlayer(){return pCurr;}
+
+
+	//Miscellaneous necessary methods
+	public String getEvent(){return event;}
+	public void resetEvent(){event="";}	//reset event
+	public int getWin(){return win;}
+
+	//add to players banked
+	public void bankAll(){
+		p1.addToBanked(p1.getWinnings());
+		p2.addToBanked(p2.getWinnings());
+		p3.addToBanked(p3.getWinnings());
+	}
+	
 	//changes the players after each turn
 	public void playerRotate(){
 
@@ -145,7 +160,25 @@ public class MainPanel extends JPanel implements ActionListener{
 		p2money.setText("$"+p2.totalWinnings());
 		p3money.setText("$"+p3.totalWinnings());
 	}
-	
+
+	//set event button methods
+	public void buttonsON(){
+		spin.setEnabled(false);
+		guessLett.setEnabled(true);
+		if(pCurr.getWinnings()>250)
+			buyVowel.setEnabled(true);
+		else
+			buyVowel.setEnabled(false);
+		guessPhrase.setEnabled(true);
+	}
+
+	public void buttonsOFF(){
+		spin.setEnabled(true);
+		guessLett.setEnabled(false);
+		buyVowel.setEnabled(false);
+		guessPhrase.setEnabled(false);
+	}
+
 	//confirm selection
 	public boolean confirm(JButton b){
 		boolean result=false;
@@ -162,53 +195,44 @@ public class MainPanel extends JPanel implements ActionListener{
 		return result;
 	}
 
-	public void spinResult(){
+	public int spinResult(int win){
 		String message="", result = w.spin();
 		if(result.equals("Bankrupt"))
 			message = "Sorry! You have gone bankrupt.";
 		else if(result.equals("Lose a turn"))
 			message = "Sorry! You lose a turn.";
-		else
-			message = "Your prize: $"+Integer.parseInt(result);	
+		else{
+			win=Integer.parseInt(result);
+			message = "Your prize: $"+win;
+		}	
 		pop.play();
 		JOptionPane.showMessageDialog(null, message);
 		
 		//skips turn, and takes money if bankrupt
 		if(result.equals("Bankrupt")){
 			pCurr.bankrupt();
-			playerRotate();
 			buttonsOFF();
+			playerRotate();
 		}
 		
 		if(result.equals("Lose a turn")){
-			playerRotate();
 			buttonsOFF();
+			playerRotate();
+			
 		}
+		
+		return win;
+		
 	}
 
-	//set event button methods
-	public void buttonsON(){
-		spin.setEnabled(false);
-		guessLett.setEnabled(true);
-		if(pCurr.getWinnings()>250)
-			buyVowel.setEnabled(true);
-		else
-			buyVowel.setEnabled(false);
-		guessPhrase.setEnabled(true);
-	}
 	
-	public void buttonsOFF(){
-		spin.setEnabled(true);
-		guessLett.setEnabled(false);
-		buyVowel.setEnabled(false);
-		guessPhrase.setEnabled(false);
-	}
 	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(spin)){
 			spinner.play();	//plays wheel sound
-			spinResult();
 			buttonsON();
+			win=spinResult(win);
+					
 		}
 
 		else if(e.getSource().equals(guessLett)){

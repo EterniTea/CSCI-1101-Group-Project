@@ -126,26 +126,26 @@ public class GuessLetter extends GuessPanel implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(cancel)){event="cancel";}
-		else if(e.getSource().equals(b)){confirm(b);}
-		else if(e.getSource().equals(c)){confirm(c);}
-		else if(e.getSource().equals(d)){confirm(d);}
-		else if(e.getSource().equals(f)){confirm(f);}
-		else if(e.getSource().equals(g)){confirm(g);}
-		else if(e.getSource().equals(h)){confirm(h);}
-		else if(e.getSource().equals(j)){confirm(j);}
-		else if(e.getSource().equals(k)){confirm(k);}
-		else if(e.getSource().equals(l)){confirm(l);}
-		else if(e.getSource().equals(m)){confirm(m);}
-		else if(e.getSource().equals(n)){confirm(n);}
-		else if(e.getSource().equals(p)){confirm(p);}
-		else if(e.getSource().equals(q)){confirm(q);}
-		else if(e.getSource().equals(r)){confirm(r);}
-		else if(e.getSource().equals(s)){confirm(s);}
-		else if(e.getSource().equals(t)){confirm(t);}
-		else if(e.getSource().equals(v)){confirm(v);}
-		else if(e.getSource().equals(w)){confirm(w);}
-		else if(e.getSource().equals(x)){confirm(x);}
-		else if(e.getSource().equals(y)){confirm(y);}
-		else if(e.getSource().equals(z)){confirm(z);}
+		else if(e.getSource().equals(b)){confirm(b);guess="";}
+		else if(e.getSource().equals(c)){confirm(c);guess="";}
+		else if(e.getSource().equals(d)){confirm(d);guess="";}
+		else if(e.getSource().equals(f)){confirm(f);guess="";}
+		else if(e.getSource().equals(g)){confirm(g);guess="";}
+		else if(e.getSource().equals(h)){confirm(h);guess="";}
+		else if(e.getSource().equals(j)){confirm(j);guess="";}
+		else if(e.getSource().equals(k)){confirm(k);guess="";}
+		else if(e.getSource().equals(l)){confirm(l);guess="";}
+		else if(e.getSource().equals(m)){confirm(m);guess="";}
+		else if(e.getSource().equals(n)){confirm(n);guess="";}
+		else if(e.getSource().equals(p)){confirm(p);guess="";}
+		else if(e.getSource().equals(q)){confirm(q);guess="";}
+		else if(e.getSource().equals(r)){confirm(r);guess="";}
+		else if(e.getSource().equals(s)){confirm(s);guess="";}
+		else if(e.getSource().equals(t)){confirm(t);guess="";}
+		else if(e.getSource().equals(v)){confirm(v);guess="";}
+		else if(e.getSource().equals(w)){confirm(w);guess="";}
+		else if(e.getSource().equals(x)){confirm(x);guess="";}
+		else if(e.getSource().equals(y)){confirm(y);guess="";}
+		else if(e.getSource().equals(z)){confirm(z);guess="";}
 	}
 }

@@ -64,6 +64,7 @@ public class GuessPhrase extends GuessPanel implements ActionListener{
 		if(e.getSource().equals(ok)){
 			confirm(phrase);
 			phrase.setText("");
+			guess="";
 		}
 		
 		else if(e.getSource().equals(cancel)){

@@ -72,6 +72,7 @@ public class Wheel_of_Fortune {
 			phrase.pack();
 			phrase.setVisible(false);
 		
+			
 			JOptionPane.showMessageDialog(null, "Round "+round);
 			pop.play();
 			game.setVisible(true);
@@ -79,23 +80,27 @@ public class Wheel_of_Fortune {
 			int i=0; //for testing purposes
 			while(i<5){	//keeps game going as long as phrase isnt guessed (this is just a place holder for testing)/////////////////////////////////////////////////////////
 				
+				game.toBack();	//sends window to back so it doest cause glitchy looking screen...never mind :(
 				while(game.isEnabled()){
 					
 					//check for the event in game panel is
 					if(gameP.getEvent().equals("letter")){
 						game.setEnabled(false);
-						i=showFrame(letter, letterP, gameP, i);////////////////////////////////////////////////////////////////////////////////////////////////////////
+						showFrame(letter, letterP, gameP);
 					}
 					
 					else if(gameP.getEvent().equals("vowel")){
 						game.setEnabled(false);
-						i=showFrame(vowel, vowelP, gameP, i);//////////////////////////////////////////////////////////////////////////////////////////////////////
+						showFrame(vowel, vowelP, gameP);
 					}
 
 					else if(gameP.getEvent().equals("phrase")){
 						game.setEnabled(false);
-						i=showFrame(phrase, phraseP, gameP, i);/////////////////////////////////////////////////////////////////////////////////////////////////////
-					}	
+						showFrame(phrase, phraseP, gameP);
+					}
+					
+					game.toFront();
+					gameP.updateMoney();
 					
 				}	//end of while enabled
 				
@@ -106,7 +111,7 @@ public class Wheel_of_Fortune {
 				
 			}	//end of while loop
 			
-			//close the guessing windows for the round
+			gameP.bankAll();
 
 		}	//end of for loop
 	
@@ -114,26 +119,26 @@ public class Wheel_of_Fortune {
 	}	//end of main
 	
 	//method to open and get results from the guessing windows
-	public static int showFrame(JFrame f, GuessPanel p, MainPanel g, int i){	//i is for testing purposes////////////////////////////////////////////////////////
+	public static void showFrame(JFrame f, GuessPanel p, MainPanel g){
 		f.setVisible(true);
 		while(f.isVisible()){
-			if(g.getEvent().equals("guess")){
+			if(p.getEvent().equals("guess")){
+				int win = g.getWin();
+				g.getPlayer().addToWinnings(win);
 				g.playerRotate();
 				p.resetEvent();
 				f.setVisible(false);
 			}
 		
-			else if(g.getEvent().equals("cancel")){
+			else if(p.getEvent().equals("cancel")){
 				g.buttonsON();
 				p.resetEvent();
 				f.setVisible(false);
-				
-				i--;	///testing purposes//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 			}
 			
 		}
 		
-		return i;
 	}
 	
 }

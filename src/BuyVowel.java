@@ -74,11 +74,11 @@ public class BuyVowel extends GuessPanel implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(cancel)){event="cancel";}
-		else if(e.getSource().equals(a)){confirm(a);}
-		else if(e.getSource().equals(this.e)){confirm(this.e);}
-		else if(e.getSource().equals(i)){confirm(i);}
-		else if(e.getSource().equals(o)){confirm(o);}
-		else if(e.getSource().equals(u)){confirm(u);}
+		else if(e.getSource().equals(a)){confirm(a);guess="";}
+		else if(e.getSource().equals(this.e)){confirm(this.e);guess="";}
+		else if(e.getSource().equals(i)){confirm(i);guess="";}
+		else if(e.getSource().equals(o)){confirm(o);guess="";}
+		else if(e.getSource().equals(u)){confirm(u);guess="";}
 	}
 	
 }
