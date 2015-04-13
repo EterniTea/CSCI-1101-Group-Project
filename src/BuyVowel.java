@@ -56,7 +56,15 @@ public class BuyVowel extends GuessPanel implements ActionListener{
 	public String getGuess(){return guess;}
 	public void resetEvent(){event="";}
 
-	
+	//enable all of the letters
+	public void allEnabled(){
+		a.setEnabled(true);
+		e.setEnabled(true);
+		i.setEnabled(true);
+		o.setEnabled(true);
+		u.setEnabled(true);
+	}
+
 	//confirm player action
 	public boolean confirm(JButton b){
 		boolean result=false;
@@ -71,7 +79,7 @@ public class BuyVowel extends GuessPanel implements ActionListener{
 		
 		return result;
 	}
-	
+		
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(cancel)){event="cancel";}
 		else if(e.getSource().equals(a)){confirm(a);guess="";}

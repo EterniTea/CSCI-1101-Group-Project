@@ -108,7 +108,31 @@ public class GuessLetter extends GuessPanel implements ActionListener{
 	public String getGuess(){return guess;}
 	public void resetEvent(){event="";}
 
-
+	//enable all of the letters
+	public void allEnabled(){
+		b.setEnabled(true);
+		c.setEnabled(true);
+		d.setEnabled(true);
+		f.setEnabled(true);
+		g.setEnabled(true);
+		h.setEnabled(true);
+		j.setEnabled(true);
+		k.setEnabled(true);
+		l.setEnabled(true);
+		m.setEnabled(true);
+		n.setEnabled(true);
+		p.setEnabled(true);
+		q.setEnabled(true);
+		r.setEnabled(true);
+		s.setEnabled(true);
+		t.setEnabled(true);
+		v.setEnabled(true);
+		w.setEnabled(true);
+		x.setEnabled(true);
+		y.setEnabled(true);
+		z.setEnabled(true);
+	}
+	
 	//confirm player action
 	public boolean confirm(JButton b){
 		boolean result=false;

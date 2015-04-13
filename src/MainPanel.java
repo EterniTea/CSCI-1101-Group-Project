@@ -12,7 +12,7 @@ import javax.swing.JRadioButton;
 
 public class MainPanel extends JPanel implements ActionListener{
 	//return variables
-	private String event;
+	private String event, message;
 	
 	//sounds
 	PopUp pop = new PopUp();
@@ -22,8 +22,8 @@ public class MainPanel extends JPanel implements ActionListener{
 	private Player p1, p2, p3;
 
 	private Player pCurr;
-	private int round, win;
-	private Wheel w; 
+	private int prize;
+	private Wheel wheel; 
 
 	//components
 	private JLabel p1money, p2money, p3money;
@@ -32,14 +32,14 @@ public class MainPanel extends JPanel implements ActionListener{
 
 	private JButton spin, guessLett, buyVowel, guessPhrase;
 
-	public MainPanel(String n1, String n2, String n3, int r) {
+	public MainPanel(String n1, String n2, String n3, String msg) {
 		//set return variables
 		event = "";
 		
-		//set win, round and wheel
-		win=0;
-		round = r;
-		w = new Wheel(r);
+		//set prize, wheel and message
+		prize=0;
+		wheel = new Wheel(0);
+		message = msg;
 		
 		//construct players
 		p1 = new Player(n1);
@@ -120,13 +120,18 @@ public class MainPanel extends JPanel implements ActionListener{
 	//Miscellaneous necessary methods
 	public String getEvent(){return event;}
 	public void resetEvent(){event="";}	//reset event
-	public int getWin(){return win;}
+	public int getWin(){return prize;}
 
+	//get message
+	public String getMessage(){return message;}
 	//add to players banked
 	public void bankAll(){
 		p1.addToBanked(p1.getWinnings());
+		p1.resetWinnings();
 		p2.addToBanked(p2.getWinnings());
+		p2.resetWinnings();
 		p3.addToBanked(p3.getWinnings());
+		p3.resetWinnings();
 	}
 	
 	//changes the players after each turn
@@ -161,6 +166,10 @@ public class MainPanel extends JPanel implements ActionListener{
 		p3money.setText("$"+p3.totalWinnings());
 	}
 
+	//update wheel for new round
+	public void updateWheel(int r){wheel = new Wheel(r);}
+		
+		
 	//set event button methods
 	public void buttonsON(){
 		spin.setEnabled(false);
@@ -195,22 +204,23 @@ public class MainPanel extends JPanel implements ActionListener{
 		return result;
 	}
 
-	public int spinResult(int win){
-		String message="", result = w.spin();
+	//returns the result
+	public int spinResult(int prize){
+		String msg="", result = wheel.spin();
 		if(result.equals("Bankrupt"))
-			message = "Sorry! You have gone bankrupt.";
+			msg = "Sorry! You have gone bankrupt.";
 		else if(result.equals("Lose a turn"))
-			message = "Sorry! You lose a turn.";
+			msg = "Sorry! You lose a turn.";
 		else{
-			win=Integer.parseInt(result);
-			message = "Your prize: $"+win;
+			prize=Integer.parseInt(result);
+			msg = "Your prize: $"+prize;
 		}	
 		pop.play();
-		JOptionPane.showMessageDialog(null, message);
+		JOptionPane.showMessageDialog(null, msg);
 		
 		//skips turn, and takes money if bankrupt
 		if(result.equals("Bankrupt")){
-			pCurr.bankrupt();
+			pCurr.resetWinnings();
 			buttonsOFF();
 			playerRotate();
 		}
@@ -221,17 +231,16 @@ public class MainPanel extends JPanel implements ActionListener{
 			
 		}
 		
-		return win;
+		return prize;
 		
 	}
-
 	
 	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(spin)){
 			spinner.play();	//plays wheel sound
 			buttonsON();
-			win=spinResult(win);
+			prize=spinResult(prize);
 					
 		}
 
