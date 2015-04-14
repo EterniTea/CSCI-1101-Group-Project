@@ -117,13 +117,13 @@ public class MainPanel extends JPanel implements ActionListener{
 	public Player getPlayer(){return pCurr;}
 
 
-	//Miscellaneous necessary methods
-	public String getEvent(){return event;}
-	public void resetEvent(){event="";}	//reset event
-	public int getWin(){return prize;}
 
-	//get message
-	public String getMessage(){return message;}
+	public String getEvent(){return event;}	//returns event string
+	public void resetEvent(){event="";}	//reset event
+	public int getWin(){return prize;}	//returns the prize
+	public String getMessage(){return message;}	//returns message
+	public void updateWheel(int r){wheel = new Wheel(r);}	//update wheel for new round
+	
 	//add to players banked
 	public void bankAll(){
 		p1.addToBanked(p1.getWinnings());
@@ -166,10 +166,6 @@ public class MainPanel extends JPanel implements ActionListener{
 		p3money.setText("$"+p3.totalWinnings());
 	}
 
-	//update wheel for new round
-	public void updateWheel(int r){wheel = new Wheel(r);}
-		
-		
 	//set event button methods
 	public void buttonsON(){
 		spin.setEnabled(false);
@@ -232,8 +228,20 @@ public class MainPanel extends JPanel implements ActionListener{
 		}
 		
 		return prize;
-		
+
 	}
+
+	//method to declare winnings
+	public void endGame(){
+		JOptionPane.showMessageDialog(null, "Congratulations!\n"+
+				"\n"+p1.getName()+" wins $"+p1.getBankedWinnings()+
+				"\n"+p2.getName()+" wins $"+p2.getBankedWinnings()+
+				"\n"+p3.getName()+" wins $"+p3.getBankedWinnings());
+		pop.play();
+		JOptionPane.showMessageDialog(null, "Thank You for playing!!!");
+		pop.play();
+	}
+	
 	
 	
 	public void actionPerformed(ActionEvent e) {

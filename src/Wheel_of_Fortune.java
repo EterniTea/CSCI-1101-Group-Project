@@ -74,7 +74,7 @@ public class Wheel_of_Fortune {
 		phrase.setVisible(false);
 
 		//counts for 4 rounds
-		for(int r=1;r<=4;r++){
+		for(int r=1;r<=2;r++){
 			
 			game.setTitle("Wheel of Fortune - Round " + r);	//change title according to the round
 			gameP.updateWheel(r);	//updating wheel in gameP
@@ -93,12 +93,12 @@ public class Wheel_of_Fortune {
 						showFrame(letter, game, letterP, gameP);
 					}
 					
-					else if(gameP.getEvent().equals("vowel")){
+					if(gameP.getEvent().equals("vowel")){
 						game.setEnabled(false);
 						showFrame(vowel, game, vowelP, gameP);
 					}
 
-					else if(gameP.getEvent().equals("phrase")){
+					if(gameP.getEvent().equals("phrase")){
 						game.setEnabled(false);
 						showFrame(phrase, game, phraseP, gameP);
 					}
@@ -123,7 +123,10 @@ public class Wheel_of_Fortune {
 			vowelP.allEnabled();
 
 		}	//end of for loop
-	
+		
+		game.setVisible(false);
+		gameP.endGame();
+		System.exit(0);
 	
 	}	//end of main
 	
@@ -144,13 +147,13 @@ public class Wheel_of_Fortune {
 				panel.resetEvent();
 				frame.setVisible(false);
 				gameF.toFront();
+				gameF.setEnabled(true);
+				gameP.resetEvent();
 			}
 			
 		}
 		
 	}
-	
-	//method t
 	
 }
 
