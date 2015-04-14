@@ -16,6 +16,11 @@ public class Phrases {
 		hidden = new char[word.length()];
 	}
 	
+	public String getPhrase(){
+		String phrase = new String(hidden);
+		return phrase;
+	}
+	
 	public void convertToHidden(){
 		for(int j=0; j < word.length(); j++){
 			if(word.charAt(j) == ' ')
