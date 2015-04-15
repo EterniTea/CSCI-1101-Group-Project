@@ -21,7 +21,6 @@ public class Phrases {
 
 		for(int i=0; i < word.length(); i++){
 			hidden[i] = '_';
-			hidden[i+1] = ' ';
 		}
 		String s = new String(hidden);
 		return s;
