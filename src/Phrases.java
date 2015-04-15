@@ -29,11 +29,17 @@ public class Phrases {
 	}
 
 
-	public void guessLetter(char x){
+	public boolean guessLetter(char x){
+		boolean valid = false;
 		for(int i = 0; i < word.length(); i++){
-			if(x == word.charAt(i))
+			if(x == word.charAt(i)){
 				hidden[i] = word.charAt(i);
+				valid = true;
+			}
+			else
+				valid = false;
 		}
+		return valid;
 	}
 
 	public boolean guessPhrase(String s){
