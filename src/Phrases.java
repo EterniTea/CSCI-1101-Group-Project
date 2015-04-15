@@ -14,6 +14,7 @@ public class Phrases {
 		hidden = new char[word.length()];
 	}
 
+	
 	public String getPhrase(){return word;}
 	public String getHidden(){return new String(hidden);}
 	
@@ -25,6 +26,9 @@ public class Phrases {
 
 	}
 	
+	//sets hidden to the word
+	public String setHidden(String s){return word;}
+	
 	public String setPhrase(){
 		int i = rand.nextInt(phrases.length);
 		word = phrases[i].toUpperCase();
@@ -33,11 +37,11 @@ public class Phrases {
 
 
 	public boolean guessLetter(char x){
-		int preLoop=numChar('_'), postLoop; 
+		int preLoop=hiddenCheck(), postLoop; 
 		for(int i = 0; i < word.length(); i++)
 			if(x == word.charAt(i))
 				hidden[i] = word.charAt(i);
-		postLoop=numChar('_');
+		postLoop=hiddenCheck();
 
 		return postLoop != preLoop;
 	}
@@ -57,6 +61,15 @@ public class Phrases {
 		int n=0;
 		for(int i=0; i<word.length(); i++){
 			if(c==word.charAt(i))
+				n++;
+		}
+		return n;
+	}
+	
+	public int hiddenCheck(){
+		int n=0;
+		for(int i=0; i<hidden.length; i++){
+			if('_'==hidden[i])
 				n++;
 		}
 		return n;

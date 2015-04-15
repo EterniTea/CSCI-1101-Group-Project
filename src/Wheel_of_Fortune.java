@@ -146,21 +146,7 @@ public class Wheel_of_Fortune {
 				Player player = gameP.getPlayer();
 				
 				//if guess is greater than 1 character then it must be guessing phrase
-				if(guess.length()>1){
-					chars=p.numChar('_');
-					if(p.guessPhrase(guess)){
-						if(win!=1000000)
-							win*=chars;
-						JOptionPane.showMessageDialog(null, "You just won $"+win+"!");
-						player.addToWinnings(win);
-					}
-					else
-						JOptionPane.showMessageDialog(null, guess+" is not the word");
-
-				}
-
-				//must be single char is guess length is not greater than 1
-				else{
+				if(guess.length()==1){
 					chars=p.numChar(guess.charAt(0));
 					if(p.guessLetter(guess.charAt(0))){
 						JOptionPane.showMessageDialog(null, "There is "+chars+" "+guess+"('s)");
@@ -173,6 +159,24 @@ public class Wheel_of_Fortune {
 					else
 						JOptionPane.showMessageDialog(null, guess+" is not in this word");
 				}
+				
+
+				//must be single char is guess length is not greater than 1
+				else{
+					chars=p.hiddenCheck();
+					if(p.guessPhrase(guess.toUpperCase())){
+						if(win!=1000000)
+							win*=chars;
+						JOptionPane.showMessageDialog(null, "You just won $"+win+"!");
+						player.addToWinnings(win);
+						p.setHidden(guess);
+					}
+					else
+						JOptionPane.showMessageDialog(null, guess+" is not the word");
+
+				}
+
+					
 				
 				gameP.playerRotate();
 				panel.resetEvent();
