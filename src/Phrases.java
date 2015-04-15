@@ -15,7 +15,7 @@ public class Phrases {
 	}
 
 	public String getPhrase(){return word;}
-	
+
 	public String getHidden(){
 
 
@@ -29,11 +29,21 @@ public class Phrases {
 	}
 
 
-	public void guess(char x){
+	public void guessLetter(char x){
 		for(int i = 0; i < word.length(); i++){
 			if(x == word.charAt(i))
 				hidden[i] = word.charAt(i);
 		}
+	}
+
+	public boolean guessPhrase(String s){
+		for(int i = 0; i < word.length(); i++){
+			if(s.equals(word))
+				return true;
+			else
+				return false;
+		}
+		return false;
 	}
 
 }
