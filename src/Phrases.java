@@ -16,20 +16,8 @@ public class Phrases {
 
 	public String getPhrase(){return word;}
 	public String getHidden(){
-<<<<<<< HEAD
-		for(int i=0; i < word.length()*2; i++){
-			if(i%2==1)
-				hidden[i] = ' ';
-			else
-				hidden[i] = '_';
-		}
-		
-		String s = new String(hidden);
-		return s;
 
-		}
-	
-=======
+
 		for(int i=0; i < word.length(); i++){
 			hidden[i] = '_';
 			hidden[i+1] = ' ';
@@ -39,7 +27,7 @@ public class Phrases {
 
 	}
 
->>>>>>> origin/master
+
 	public void guess(char x){
 		for(int i = 0; i < word.length(); i++){
 			if(x == word.charAt(i))
