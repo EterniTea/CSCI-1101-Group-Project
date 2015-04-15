@@ -15,6 +15,7 @@ public class Phrases {
 	}
 
 	public String getPhrase(){return word;}
+	
 	public String getHidden(){
 
 
