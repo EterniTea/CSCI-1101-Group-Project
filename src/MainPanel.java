@@ -25,7 +25,6 @@ public class MainPanel extends JPanel implements ActionListener{
 	private Player pCurr;
 	private int prize;
 	private Wheel wheel; 
-	private Phrases phr;
 
 	//components
 	private JLabel p1money, p2money, p3money, phrase;
@@ -41,8 +40,7 @@ public class MainPanel extends JPanel implements ActionListener{
 		//set prize, wheel and message
 		prize=0;
 		wheel = new Wheel(0);
-		phr=p;
-		message = phr.getHidden();
+		message = p.getHidden();
 		
 		//construct players
 		p1 = new Player(n1);
@@ -127,7 +125,7 @@ public class MainPanel extends JPanel implements ActionListener{
 	public String getEvent(){return event;}	//returns event string
 	public void resetEvent(){event="";}	//reset event
 	public int getWin(){return prize;}	//returns the prize
-	public Phrases getPhrases(){return phr;}	//returns message
+	public String getMessage(){return message;}	//returns message
 	public void updateWheel(int r){wheel = new Wheel(r);}	//update wheel for new round
 	
 	//add to players banked
