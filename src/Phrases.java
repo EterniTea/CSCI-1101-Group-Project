@@ -37,13 +37,10 @@ public class Phrases {
 	}
 
 	public boolean guessPhrase(String s){
-		for(int i = 0; i < word.length(); i++){
-			if(s.equals(word))
-				return true;
-			else
-				return false;
-		}
-		return false;
+		if(s.equals(word))
+			return true;
+		else
+			return false;
 	}
 
 }
