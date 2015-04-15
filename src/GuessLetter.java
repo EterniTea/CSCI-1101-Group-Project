@@ -150,26 +150,26 @@ public class GuessLetter extends GuessPanel implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(cancel)){event="cancel";}
-		else if(e.getSource().equals(b)){confirm(b);guess="";}
-		else if(e.getSource().equals(c)){confirm(c);guess="";}
-		else if(e.getSource().equals(d)){confirm(d);guess="";}
-		else if(e.getSource().equals(f)){confirm(f);guess="";}
-		else if(e.getSource().equals(g)){confirm(g);guess="";}
-		else if(e.getSource().equals(h)){confirm(h);guess="";}
-		else if(e.getSource().equals(j)){confirm(j);guess="";}
-		else if(e.getSource().equals(k)){confirm(k);guess="";}
-		else if(e.getSource().equals(l)){confirm(l);guess="";}
-		else if(e.getSource().equals(m)){confirm(m);guess="";}
-		else if(e.getSource().equals(n)){confirm(n);guess="";}
-		else if(e.getSource().equals(p)){confirm(p);guess="";}
-		else if(e.getSource().equals(q)){confirm(q);guess="";}
-		else if(e.getSource().equals(r)){confirm(r);guess="";}
-		else if(e.getSource().equals(s)){confirm(s);guess="";}
-		else if(e.getSource().equals(t)){confirm(t);guess="";}
-		else if(e.getSource().equals(v)){confirm(v);guess="";}
-		else if(e.getSource().equals(w)){confirm(w);guess="";}
-		else if(e.getSource().equals(x)){confirm(x);guess="";}
-		else if(e.getSource().equals(y)){confirm(y);guess="";}
-		else if(e.getSource().equals(z)){confirm(z);guess="";}
+		else if(e.getSource().equals(b)){confirm(b);guess="B";}
+		else if(e.getSource().equals(c)){confirm(c);guess="C";}
+		else if(e.getSource().equals(d)){confirm(d);guess="D";}
+		else if(e.getSource().equals(f)){confirm(f);guess="F";}
+		else if(e.getSource().equals(g)){confirm(g);guess="G";}
+		else if(e.getSource().equals(h)){confirm(h);guess="H";}
+		else if(e.getSource().equals(j)){confirm(j);guess="J";}
+		else if(e.getSource().equals(k)){confirm(k);guess="K";}
+		else if(e.getSource().equals(l)){confirm(l);guess="L";}
+		else if(e.getSource().equals(m)){confirm(m);guess="M";}
+		else if(e.getSource().equals(n)){confirm(n);guess="N";}
+		else if(e.getSource().equals(p)){confirm(p);guess="P";}
+		else if(e.getSource().equals(q)){confirm(q);guess="Q";}
+		else if(e.getSource().equals(r)){confirm(r);guess="R";}
+		else if(e.getSource().equals(s)){confirm(s);guess="S";}
+		else if(e.getSource().equals(t)){confirm(t);guess="T";}
+		else if(e.getSource().equals(v)){confirm(v);guess="V";}
+		else if(e.getSource().equals(w)){confirm(w);guess="W";}
+		else if(e.getSource().equals(x)){confirm(x);guess="X";}
+		else if(e.getSource().equals(y)){confirm(y);guess="Y";}
+		else if(e.getSource().equals(z)){confirm(z);guess="Z";}
 	}
 }

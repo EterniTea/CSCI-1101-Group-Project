@@ -78,50 +78,53 @@ public class Wheel_of_Fortune {
 
 		//counts for 4 rounds
 		for(int r=1;r<=2;r++){
-			
+			System.out.println(phr.getPhrase());
 			game.setTitle("Wheel of Fortune - Round " + r);	//change title according to the round
 			gameP.updateWheel(r);	//updating wheel in gameP
 			JOptionPane.showMessageDialog(null, "Round "+r);	//shows current round
 			pop.play();
 			game.setVisible(true);
 			
-			int i=0; //for testing purposes
-			while(i<5){	//keeps game going as long as phrase isnt guessed (this is just a place holder for testing)/////////////////////////////////////////////////////////
+		
+			while(!phr.getHidden().equals(phr.getPhrase())){	//keeps game going as long as phrase isnt guessed (this is just a place holder for testing)/////////////////////////////////////////////////////////
 				
 				while(game.isEnabled()){
 					
 					//check for the event in game panel is
 					if(gameP.getEvent().equals("letter")){
 						game.setEnabled(false);
-						showFrame(letter, game, letterP, gameP);
+						showFrame(letter, game, letterP, gameP, phr);
 					}
 					
 					if(gameP.getEvent().equals("vowel")){
 						game.setEnabled(false);
-						showFrame(vowel, game, vowelP, gameP);
+						gameP.getPlayer().addToWinnings(-250);
+						showFrame(vowel, game, vowelP, gameP, phr);
 					}
 
 					if(gameP.getEvent().equals("phrase")){
 						game.setEnabled(false);
-						showFrame(phrase, game, phraseP, gameP);
+						showFrame(phrase, game, phraseP, gameP, phr);
 					}
 					
 					if(!gameP.getEvent().equals(""))
 							game.toFront();
 					
 					gameP.updateMoney();
+					gameP.updatePhrase();
 					
 				}	//end of while enabled
 				
 				game.setEnabled(true);
 				gameP.resetEvent();
-				
-				i++;	//testing purposes////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				
+								
 			}	//end of while loop
 			
 			//bank the players money and close the guessing windos in order to make new ones
 			gameP.bankAll();
+			phr.setPhrase();
+			phr.setHidden();
+			gameP.setNewPhrase(phr.getHidden());
 			letterP.allEnabled();
 			vowelP.allEnabled();
 
@@ -134,18 +137,51 @@ public class Wheel_of_Fortune {
 	}	//end of main
 	
 	//method to open and get results from the guessing windows
-	public static void showFrame(JFrame frame, JFrame gameF, GuessPanel panel, MainPanel gameP){
+	public static void showFrame(JFrame frame, JFrame gameF, GuessPanel panel, MainPanel gameP, Phrases p){
 		frame.setVisible(true);
 		while(frame.isVisible()){
 			if(panel.getEvent().equals("guess")){
-				int win = gameP.getWin();
-				gameP.getPlayer().addToWinnings(win);
+				int win = gameP.getWin(), chars=0;
+				String guess = panel.getGuess();
+				Player player = gameP.getPlayer();
+				
+				//if guess is greater than 1 character then it must be guessing phrase
+				if(guess.length()>1){
+					chars=p.numChar('_');
+					if(p.guessPhrase(guess)){
+						if(win!=1000000)
+							win*=chars;
+						JOptionPane.showMessageDialog(null, "You just won $"+win+"!");
+						player.addToWinnings(win);
+					}
+					else
+						JOptionPane.showMessageDialog(null, guess+" is not the word");
+
+				}
+
+				//must be single char is guess length is not greater than 1
+				else{
+					chars=p.numChar(guess.charAt(0));
+					if(p.guessLetter(guess.charAt(0))){
+						JOptionPane.showMessageDialog(null, "There is "+chars+" "+guess+"('s)");
+						if(win!=1000000)
+							win*=chars;
+						JOptionPane.showMessageDialog(null, "You just won $"+win+"!");
+						player.addToWinnings(win);
+					}
+					
+					else
+						JOptionPane.showMessageDialog(null, guess+" is not in this word");
+				}
+				
 				gameP.playerRotate();
 				panel.resetEvent();
 				frame.setVisible(false);
 			}
-		
+
 			else if(panel.getEvent().equals("cancel")){
+				if(gameP.getEvent().equals("vowel"))
+					gameP.getPlayer().addToWinnings(250);
 				gameP.buttonsON();
 				panel.resetEvent();
 				frame.setVisible(false);
@@ -153,11 +189,11 @@ public class Wheel_of_Fortune {
 				gameF.setEnabled(true);
 				gameP.resetEvent();
 			}
-			
+
 		}
-		
+
 	}
-	
+
 }
 
 

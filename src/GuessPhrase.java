@@ -50,13 +50,16 @@ public class GuessPhrase extends GuessPanel implements ActionListener{
 		boolean result=false;
 		pop.play();
 		guess=f.getText();
-		if (JOptionPane.showConfirmDialog(null, "Is this the guess you gues?\n\""+guess+"\"", "Confirm",
+		if(guess.equals(""))
+			JOptionPane.showMessageDialog(null, "Please enter a guess");
+
+		else if (JOptionPane.showConfirmDialog(null, "Is this the guess you gues?\n\""+guess+"\"", "Confirm",
 				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
 			result=true;
 			event="guess";	//set event to phrase
 			guess = guess.toUpperCase();
 		}
-		
+
 		return result;
 	}
 	

@@ -10,30 +10,56 @@ public class Phrases {
 
 	public Phrases(){
 		int i = rand.nextInt(phrases.length);
-		word = phrases[i];
+		word = phrases[i].toUpperCase();
 		hidden = new char[word.length()];
 	}
 
 	public String getPhrase(){return word;}
+	public String getHidden(){return new String(hidden);}
 	
-	public String getHidden(){
-
-
-		for(int i=0; i < word.length(); i++){
+	public String setHidden(){
+		for(int i=0; i < word.length(); i++)
 			hidden[i] = '_';
-			hidden[i+1] = ' ';
-		}
 		String s = new String(hidden);
 		return s;
 
 	}
+	
+	public String setPhrase(){
+		int i = rand.nextInt(phrases.length);
+		word = phrases[i].toUpperCase();
+		return word;
+	}
 
 
-	public void guess(char x){
-		for(int i = 0; i < word.length(); i++){
+	public boolean guessLetter(char x){
+		int preLoop=numChar('_'), postLoop; 
+		for(int i = 0; i < word.length(); i++)
 			if(x == word.charAt(i))
 				hidden[i] = word.charAt(i);
+		postLoop=numChar('_');
+
+		return postLoop != preLoop;
+	}
+		
+	
+	public boolean guessPhrase(String s){
+		if(s.equals(word)){
+			hidden.equals(word.toCharArray());
+			return true;
 		}
+		
+		else
+			return false;
+	}
+	
+	public int numChar(char c){
+		int n=0;
+		for(int i=0; i<word.length(); i++){
+			if(c==word.charAt(i))
+				n++;
+		}
+		return n;
 	}
 
 }
