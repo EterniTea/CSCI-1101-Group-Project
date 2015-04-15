@@ -40,8 +40,6 @@ public class Phrases {
 				valid = false;
 		}
 		return valid;
-<<<<<<< HEAD
-=======
 	}
 
 	public boolean guessPhrase(String s){
@@ -49,7 +47,6 @@ public class Phrases {
 			return true;
 		else
 			return false;
->>>>>>> parent of 4e7e35c... Revert "Changes to guessLetter"
 	}
 
 }
