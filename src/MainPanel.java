@@ -40,7 +40,7 @@ public class MainPanel extends JPanel implements ActionListener{
 		//set prize, wheel and message
 		prize=0;
 		wheel = new Wheel(0);
-		message = p.getHidden();
+		message = p.setHidden();
 		
 		//construct players
 		p1 = new Player(n1);
