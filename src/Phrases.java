@@ -19,10 +19,8 @@ public class Phrases {
 	public String getHidden(){
 
 
-		for(int i=0; i < word.length(); i++){
+		for(int i=0; i < word.length(); i++)
 			hidden[i] = '_';
-			hidden[i+1] = ' ';
-		}
 		String s = new String(hidden);
 		return s;
 

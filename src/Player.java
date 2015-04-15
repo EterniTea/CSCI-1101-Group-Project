@@ -45,7 +45,7 @@ public class Player {
 	
 	
 	//methods used for guessing letters
-	public boolean guessLetter(String c)
+	/*public boolean guessLetter(String c)
 	{
 		if(board.message.contains(c))
 			return true;
@@ -74,7 +74,7 @@ public class Player {
 			return true;
 		else
 			return false;
-	}
+	}*/
 	
 	//methods added by Jessi
 	public int totalWinnings(){return winnings+bankedWinnings;}
