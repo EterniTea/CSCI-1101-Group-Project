@@ -34,6 +34,7 @@ public class Phrases {
 				hidden[i] = word.charAt(i);
 				valid = true;
 			}
+			
 			else
 				valid = false;
 		}
