@@ -7,9 +7,12 @@ public class Wheel_of_Fortune {
 	public static void main(String[] args) {
 		//sound
 		PopUp pop = new PopUp();
+		
+		//phrases
+		Phrases phr = new Phrases();
 
 		//initialize variables
-		String name1="", name2="", name3="", message="";
+		String name1="", name2="", name3="";
 
 		//initialize frames
 		JFrame start = new JFrame ("New Game");
@@ -40,7 +43,7 @@ public class Wheel_of_Fortune {
 		}
 		
 		//main frame for the game
-		MainPanel gameP = new MainPanel(name1, name2, name3, message);
+		MainPanel gameP = new MainPanel(name1, name2, name3, phr);
 		game.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
 		game.getContentPane().add(gameP);
 		game.pack();
