@@ -7,24 +7,24 @@ public class Phrases {
 			"Cyndaquil", "Totodile", "Treecko", "Torchic", "Mudkip", "Turtwig", "Chimchar", 
 			"Piplup", "Snivy", "Tepig", "Oshawott", "Chespin", "Fennekin", "Froakie"};
 	private char[] hidden;
-	
+
 	public Phrases(){
 		int i = rand.nextInt(phrases.length);
 		word = phrases[i];
 		hidden = new char[word.length()];
 	}
-	
-//	public String getHidden(){String h = hidden.toString(); return h;}
+
 	public String getPhrase(){return word;}
-	
 	public String getHidden(){
-		for(int i=0; i < word.length(); i++)
+		for(int i=0; i < word.length(); i++){
 			hidden[i] = '_';
-	String s = new String(hidden);
-	return s;
-		
+			hidden[i+1] = ' ';
+		}
+		String s = new String(hidden);
+		return s;
+
 	}
-	
+
 	public void guess(char x){
 		for(int i = 0; i < word.length(); i++){
 			if(x == word.charAt(i))
