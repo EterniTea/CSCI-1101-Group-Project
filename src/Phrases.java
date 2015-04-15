@@ -20,8 +20,8 @@ public class Phrases {
 	public String getHidden(){
 		for(int i=0; i < word.length(); i++)
 			hidden[i] = '_';
-	
-		return hidden.toString();
+	String s = new String(hidden);
+	return s;
 		
 	}
 	
