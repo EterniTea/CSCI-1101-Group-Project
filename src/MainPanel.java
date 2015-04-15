@@ -42,7 +42,7 @@ public class MainPanel extends JPanel implements ActionListener{
 		prize=0;
 		wheel = new Wheel(0);
 		phr=p;
-		message = phr.setHidden();
+		message = phr.getHidden();
 		
 		//construct players
 		p1 = new Player(n1);
@@ -129,8 +129,6 @@ public class MainPanel extends JPanel implements ActionListener{
 	public int getWin(){return prize;}	//returns the prize
 	public Phrases getPhrases(){return phr;}	//returns message
 	public void updateWheel(int r){wheel = new Wheel(r);}	//update wheel for new round
-	
-	public void updatePhrase(){phrase.setText(phr.getHidden());}
 	
 	//add to players banked
 	public void bankAll(){
@@ -254,7 +252,7 @@ public class MainPanel extends JPanel implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(spin)){
-			//spinner.play();	//plays wheel sound
+			spinner.play();	//plays wheel sound
 			buttonsON();
 			prize=spinResult(prize);
 					
