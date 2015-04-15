@@ -18,12 +18,17 @@ public class Phrases {
 	public String getPhrase(){return word;}
 	
 	public String getHidden(){
-		for(int i=0; i < word.length(); i++)
-			hidden[i] = '_';
-	String s = new String(hidden);
-	return s;
+		for(int i=0; i < word.length()*2; i++){
+			if(i%2==1)
+				hidden[i] = ' ';
+			else
+				hidden[i] = '_';
+		}
 		
-	}
+		String s = new String(hidden);
+		return s;
+
+		}
 	
 	public void guess(char x){
 		for(int i = 0; i < word.length(); i++){

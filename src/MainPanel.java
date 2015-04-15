@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 public class MainPanel extends JPanel implements ActionListener{
+	
 	//return variables
 	private String event, message;
 	
@@ -26,20 +27,20 @@ public class MainPanel extends JPanel implements ActionListener{
 	private Wheel wheel; 
 
 	//components
-	private JLabel p1money, p2money, p3money;
+	private JLabel p1money, p2money, p3money, phrase;
 
 	private JRadioButton p1turn, p2turn, p3turn;
 
 	private JButton spin, guessLett, buyVowel, guessPhrase;
 
-	public MainPanel(String n1, String n2, String n3, String msg) {
+	public MainPanel(String n1, String n2, String n3, Phrases p) {
 		//set return variables
 		event = "";
 		
 		//set prize, wheel and message
 		prize=0;
 		wheel = new Wheel(0);
-		message = msg;
+		message = p.getHidden();
 		
 		//construct players
 		p1 = new Player(n1);
@@ -51,6 +52,7 @@ public class MainPanel extends JPanel implements ActionListener{
 		p1money = new JLabel ("$"+p1.totalWinnings());	//tells players how much money they have won total
 		p2money = new JLabel ("$"+p2.totalWinnings());
 		p3money = new JLabel ("$"+p3.totalWinnings());
+		phrase = new JLabel(message);
 
 		p1turn = new JRadioButton (p1.getName());	//shows the current player
 		p2turn = new JRadioButton (p2.getName());
@@ -72,7 +74,7 @@ public class MainPanel extends JPanel implements ActionListener{
 		p3money.setForeground(Color.GRAY);
 
 		p1turn.setSelected(true);	//initialy starts at player 1
-
+		
 		buttonsOFF();
 
 		spin.addActionListener(this);
@@ -96,6 +98,7 @@ public class MainPanel extends JPanel implements ActionListener{
 		add (guessLett);
 		add (buyVowel);
 		add (guessPhrase);
+		add (phrase);
 
 		//set component bounds 
 		p1money.setBounds (620, 50, 100, 20);
@@ -108,6 +111,7 @@ public class MainPanel extends JPanel implements ActionListener{
 		guessLett.setBounds (10, 235, 150, 50);
 		buyVowel.setBounds (180, 235, 150, 50);
 		guessPhrase.setBounds (350, 235, 150, 50);
+		phrase.setBounds(200, 120, 100, 25);
 	}
 	
 	//get players
