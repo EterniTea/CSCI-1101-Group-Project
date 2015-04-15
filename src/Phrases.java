@@ -16,16 +16,19 @@ public class Phrases {
 
 	public String getPhrase(){return word;}
 	
-	public String getHidden(){
+	public String setHidden(){
 
 
-		for(int i=0; i < word.length(); i++){
+		for(int i=0; i < word.length(); i++)
 			hidden[i] = '_';
-			hidden[i+1] = ' ';
-		}
 		String s = new String(hidden);
 		return s;
 
+	}
+	
+	public String getHidden(){
+	String s = new String(hidden);
+	return s;
 	}
 
 
